@@ -21,15 +21,15 @@ module tt_um_macros77_subneg (
 
     wire reset = ! rst_n;
 
-    reg [5:0] memory[21:0];
+    reg [4:0] memory[21:0];
    
     reg [1:0] state = 0;
     reg [4:0] PC = 0;
     reg [4:0] addrA = 0;
     reg [4:0] addrB = 0;
     reg [4:0] addrC = 0;
-    reg [5:0] valA = 0;
-    reg [5:0] valB = 0;
+    reg [4:0] valA = 0;
+    reg [4:0] valB = 0;
 
     reg [7:0] display = 0;
     assign uo_out = display;
@@ -58,8 +58,8 @@ module tt_um_macros77_subneg (
         memory[17] <=	0;
         memory[18] <=	0;
         memory[19] <=	1;
-        memory[20] <=	60;
-        memory[21] <=	0;       
+        memory[20] <=	51;
+        memory[21] <=	63;       
       end
       case (state)
         0: begin
