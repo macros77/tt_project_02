@@ -35,7 +35,7 @@ module tt_um_macros77_subneg (
     assign uo_out = display;
     
     always@(posedge clk) begin
-        if (reset) begin
+      if (reset) begin
         PC <= 0;
         state <= 0;
         memory[0] <=	18;
