@@ -9,12 +9,8 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works 
-
-## How to test
-
-Explain how to use your project
+Implementation of simple SUBNEG CPU executing built-in trivial program (countdown from 255 to 0).
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+Device capable of displaying 8-bit value. 
