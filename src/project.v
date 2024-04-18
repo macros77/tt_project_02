@@ -19,7 +19,7 @@ module tt_um_macros77_subneg (
     assign uio_out = 0;
     assign uio_oe  = 0;
 
-    assign reset = ! rst_n;
+    wire reset = ! rst_n;
 
     reg [7:0] memory[21:0];
    
