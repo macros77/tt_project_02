@@ -25,9 +25,9 @@ module tt_um_macros77_subneg (
    
     reg [1:0] state = 0;
     reg [4:0] PC = 0;
-    reg [4:0] addrA = 0;
-    reg [4:0] addrB = 0;
-    reg [4:0] addrC = 0;
+    reg [7:0] addrA = 0;
+    reg [7:0] addrB = 0;
+    reg [7:0] addrC = 0;
     reg [7:0] valA = 0;
     reg [7:0] valB = 0;
 
