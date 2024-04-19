@@ -49,7 +49,7 @@ module tt_um_macros77_subneg (
       end
       case (state)
         0: begin
-            bus_data <= PC;
+            bus_data_out <= PC;
             bus_dir <= 1;
             LE <= 1;
             MOE <= 0;
