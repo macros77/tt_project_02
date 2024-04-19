@@ -26,14 +26,14 @@ module tt_um_macros77_subneg (
     reg [7:0] valA = 0;
     reg [7:0] valB = 0;
 
-    assign uio_out[7:3] = 0;
+    assign uo_out[7:3] = 0;
 
     reg LE = 1;
     reg MOE = 0;
     reg MWE = 0;
-    assign uio_out[0] = LE;
-    assign uio_out[1] = MOE;
-    assign uio_out[2] = MWE;
+    assign uo_out[0] = LE;
+    assign uo_out[1] = MOE;
+    assign uo_out[2] = MWE;
 
     reg [7:0] bus_dir = 1;
     assign uio_oe  = bus_dir;
