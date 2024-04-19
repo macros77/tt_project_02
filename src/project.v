@@ -63,7 +63,7 @@ module tt_um_macros77_subneg (
             state <= 2;
         end
         2: begin
-            A <= bus_data_in;
+            addrA <= bus_data_in;
             state <= 3;
         end          
         3: begin
