@@ -39,7 +39,7 @@ module tt_um_macros77_subneg (
     assign uio_oe  = bus_dir;
     reg [7:0] bus_data_out = 0;
     assign uio_out = bus_data_out;
-    reg [7:0] bus_data_in = 0;
+    reg [7:0] bus_data_in;
     assign bus_data_in = uio_in;
     
     always@(posedge clk) begin
