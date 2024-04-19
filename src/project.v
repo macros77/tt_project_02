@@ -58,8 +58,8 @@ module tt_um_macros77_subneg (
         memory[17] <=	0;
         memory[18] <=	0;
         memory[19] <=	1;
-        memory[20] <=	51;
-        memory[21] <=	63;       
+        memory[20] <=	29;
+        memory[21] <=	31;       
       end
       case (state)
         0: begin
