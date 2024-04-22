@@ -18,7 +18,7 @@ module tt_um_macros77_subneg (
 
     wire reset = ! rst_n;
     
-    reg [3:0] state = 0;
+    reg [4:0] state = 0;
     reg [7:0] PC = 0;
     reg [7:0] addrA = 0;
     reg [7:0] addrB = 0;
@@ -198,8 +198,7 @@ module tt_um_macros77_subneg (
             27: begin
                 if (valA>valB) PC <= addrC;
                 else PC <= PC + 3;
-                if (addrB==255) display <= valC;
-                else memWE <= 0;
+                if (addrB!=255) memWE <= 0;
                 state <= 4;                
             end              
           endcase
