@@ -25,7 +25,6 @@ module tt_um_macros77_subneg (
     reg [7:0] addrC = 0;
     reg [7:0] valA = 0;
     reg [7:0] valB = 0;
-    reg [7:0] valC = 0;
 
     assign uo_out[7:3] = 0;
 
@@ -155,7 +154,6 @@ module tt_um_macros77_subneg (
             end            
             // SUBNEG logic                
             24: begin
-                valC <= valB - valA;
                 memWE <= 1;
                 memOE <= 1;
                 latchLE <= 1;
@@ -167,13 +165,13 @@ module tt_um_macros77_subneg (
                 state <= state + 1;
             end
             26: begin
-                dataDB <= valC;
+                dataDB <= valB - valA;;
                 state <= state + 1;
             end            
             27: begin
                 if (valA>valB) PC <= addrC;
                 else PC <= PC + 3;
-                if (addrB!=255) memWE <= 0;                                  
+                if (addrB != 255) memWE <= 0;                                  
                 state <= 4;                
             end              
           endcase
