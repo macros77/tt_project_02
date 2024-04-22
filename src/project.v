@@ -41,8 +41,8 @@ module tt_um_macros77_subneg (
     reg memWE = 1;
     assign uo_out[2] = memWE; 
 
-    reg [7:0] bus_dir = 1;
-    assign uio_oe  = bus_dir;
+    // Bus direction
+    assign uio_oe  =  (memOE) ? 8'b11111111 : 8'b00000000;
     
     reg [7:0] dataDB = 0;
     assign uio_out = dataDB;
