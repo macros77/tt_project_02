@@ -59,19 +59,19 @@ module tt_um_macros77_subneg (
                 memOE <= 1;
                 latchLE <= 1;
                 dataDB <= PC;
-                state <= 5;
+                state <= state + 1;
             end 
             5: begin
                 latchLE <= 0;
-                state <= 6;
+                state <= state + 1;
             end 
             6: begin
                 memOE <= 0;
-                state <= 7;
+                state <= state + 1;
             end                            
             7: begin
               addrA <= uio_in;
-              state <= 8;              
+              state <= state + 1;              
             end
             // addrB            
             8: begin   
@@ -79,19 +79,19 @@ module tt_um_macros77_subneg (
                 memOE <= 1;
                 latchLE <= 1;
                 dataDB <= PC+1;
-                state <= 9;
+                state <= state + 1;
             end 
             9: begin
                 latchLE <= 0;
-                state <= 10;
+                state <= state + 1;
             end 
             10: begin
                 memOE <= 0;
-                state <= 11;
+                state <= state + 1;
             end                            
             11: begin
               addrB <= uio_in;
-              state <= 12;              
+              state <= state + 1;             
             end           
             // addrC            
             12: begin   
@@ -99,19 +99,19 @@ module tt_um_macros77_subneg (
                 memOE <= 1;
                 latchLE <= 1;
                 dataDB <= PC+2;
-                state <= 13;
+                state <= state + 1;
             end 
             13: begin
                 latchLE <= 0;
-                state <= 14;
+                state <= state + 1;
             end 
             14: begin
                 memOE <= 0;
-                state <= 15;
+                state <= state + 1;
             end                            
             15: begin
               addrC <= uio_in;
-              state <= 16;              
+              state <= state + 1;             
             end             
             // valA            
             16: begin   
@@ -119,19 +119,19 @@ module tt_um_macros77_subneg (
                 memOE <= 1;
                 latchLE <= 1;
                 dataDB <= addrA;
-                state <= 17;
+                state <= state + 1;
             end 
             17: begin
                 latchLE <= 0;
-                state <= 18;
+                state <= state + 1;
             end 
             18: begin
                 memOE <= 0;
-                state <= 19;
+                state <= state + 1;
             end                            
             19: begin
               valA <= uio_in;
-              state <= 20;              
+              state <= state + 1;             
             end             
             // valB           
             20: begin   
@@ -139,19 +139,19 @@ module tt_um_macros77_subneg (
                 memOE <= 1;
                 latchLE <= 1;
                 dataDB <= addrB;
-                state <= 21;
+                state <= state + 1;
             end 
             21: begin
                 latchLE <= 0;
-                state <= 22;
+                state <= state + 1;
             end 
             22: begin
                 memOE <= 0;
-                state <= 23;
+                state <= state + 1;
             end                            
             23: begin
               valB <= uio_in;
-              state <= 24;              
+              state <= state + 1;            
             end            
             // SUBNEG logic                
             24: begin
@@ -160,15 +160,15 @@ module tt_um_macros77_subneg (
                 memOE <= 1;
                 latchLE <= 1;
                 dataDB <= addrB;
-                state <= 25;
+                state <= state + 1;
             end
             25: begin
                 latchLE <= 0;       
-                state <= 26;
+                state <= state + 1;
             end
             26: begin
                 dataDB <= valC;
-                state <= 27;
+                state <= state + 1;
             end            
             27: begin
                 if (valA>valB) PC <= addrC;
