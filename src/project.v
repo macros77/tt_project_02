@@ -18,7 +18,7 @@ module tt_um_macros77_subneg (
 
     wire reset = ! rst_n;
     
-    reg [4:0] state = 0;
+    reg [4:0] state = 4;
     reg [7:0] PC = 0;
     reg [7:0] addrA = 0;
     reg [7:0] addrB = 0;
@@ -50,34 +50,9 @@ module tt_um_macros77_subneg (
     always@(posedge clk) begin
       if (reset) begin
         PC <= 0;
-        state <= 0;      
+        state <= 4;      
       end
           case (state)
-            0: begin
-                memWE <= 1;
-                latchLE <= 1;
-                dataDB <= PC;
-                state <= 1;
-            end
-            1: begin
-                latchLE <= 0;       
-                state <= 2;
-            end
-            2: begin
-                dataDB <= memory[PC];
-                state <= 3;
-            end            
-            3: begin
-                memWE <= 0;
-                if (PC==255) begin
-                  PC <= 0;
-                  state <= 4;
-                end
-                else begin
-                  PC <= PC + 1;
-                  state <= 0;
-                end
-            end   
             // addrA            
             4: begin   
                 memWE <= 1;
