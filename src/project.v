@@ -48,10 +48,10 @@ module tt_um_macros77_subneg (
     assign uio_out = dataDB;
     
     always@(posedge clk) begin
-      if (reset) begin
-        PC <= 0;
-        state <= 4;      
-      end
+          if (reset) begin
+            PC <= 0;
+            state <= 4;      
+          end
           case (state)
             // addrA            
             4: begin   
@@ -91,7 +91,7 @@ module tt_um_macros77_subneg (
             end                            
             11: begin
               addrB <= uio_in;
-              state <= state + 1;             
+              state <= state + 1;              
             end           
             // addrC            
             12: begin   
@@ -151,7 +151,7 @@ module tt_um_macros77_subneg (
             end                            
             23: begin
               valB <= uio_in;
-              state <= state + 1;            
+              state <= state + 1;              
             end            
             // SUBNEG logic                
             24: begin
@@ -173,7 +173,7 @@ module tt_um_macros77_subneg (
             27: begin
                 if (valA>valB) PC <= addrC;
                 else PC <= PC + 3;
-                if (addrB!=255) memWE <= 0;
+                if (addrB!=255) memWE <= 0;                                  
                 state <= 4;                
             end              
           endcase
