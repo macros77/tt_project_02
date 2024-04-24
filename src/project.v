@@ -18,163 +18,183 @@ module tt_um_macros77_subneg (
 
     wire reset = ! rst_n;
     
-    reg [4:0] state = 4;
+    reg [4:0] state = 0;
     reg [7:0] PC = 0;
-    reg [7:0] addrA = 0;
-    reg [7:0] addrB = 0;
-    reg [7:0] addrC = 0;
-    reg [7:0] valA = 0;
-    reg [7:0] valB = 0;
+    reg [7:0] addr_A = 0;
+    reg [7:0] addr_B = 0;
+    reg [7:0] addr_C = 0;
+    reg [7:0] val_A = 0;
+    reg [7:0] val_B = 0;
 
-    assign uo_out[7:3] = 0;
+    assign uo_out[7:4] = state[3:0];
 
-    // Latch input
-    reg latchLE = 1;
-    assign uo_out[0] = latchLE; 
+    // Latch outout
+    reg out_CLK = 0;
+    assign uo_out[3] = out_CLK;
+    
+    // Latch memory address
+    reg latch_CLK = 0;
+    assign uo_out[0] = latch_CLK; 
        
     // SRAM output
-    reg memOE = 1;
-    assign uo_out[1] = memOE;  
+    reg mem_OE = 1;
+    assign uo_out[1] = mem_OE;  
 
     // SRAM write
-    reg memWE = 1;
-    assign uo_out[2] = memWE; 
+    reg mem_WE = 1;
+    assign uo_out[2] = mem_WE; 
 
     // Bus direction
-    assign uio_oe  =  (memOE) ? 8'b11111111 : 8'b00000000;
+    assign uio_oe  =  (mem_OE) ? 8'b11111111 : 8'b00000000;
     
-    reg [7:0] dataDB = 0;
-    assign uio_out = dataDB;
+    reg [7:0] data_bus = 0;
+    assign uio_out = data_bus;
     
     always@(posedge clk) begin
+
           if (reset) begin
             PC <= 0;
-            state <= 4;      
+            state <= 0;
+            out_CLK <= 0;
           end
+
           case (state)
-            // addrA            
+
+            // addr_A            
+            0: begin   
+                out_CLK <= 0;
+                mem_WE <= 1;
+                mem_OE <= 1;
+                latch_CLK <= 0;
+                data_bus <= PC;
+                state <= state + 1;
+            end 
+            1: begin
+                latch_CLK <= 1;
+                state <= state + 1;
+            end 
+            2: begin
+                mem_OE <= 0;
+                state <= state + 1;
+            end                            
+            3: begin
+              addr_A <= uio_in;
+              state <= state + 1;              
+            end
+
+            // addr_B            
             4: begin   
-                memWE <= 1;
-                memOE <= 1;
-                latchLE <= 1;
-                dataDB <= PC;
+                mem_WE <= 1;
+                mem_OE <= 1;
+                latch_CLK <= 0;
+                data_bus <= PC+1;
                 state <= state + 1;
             end 
             5: begin
-                latchLE <= 0;
+                latch_CLK <= 1;
                 state <= state + 1;
             end 
             6: begin
-                memOE <= 0;
+                mem_OE <= 0;
                 state <= state + 1;
             end                            
             7: begin
-              addrA <= uio_in;
+              addr_B <= uio_in;
               state <= state + 1;              
-            end
-            // addrB            
+            end         
+
+            // addr_C            
             8: begin   
-                memWE <= 1;
-                memOE <= 1;
-                latchLE <= 1;
-                dataDB <= PC+1;
+                mem_WE <= 1;
+                mem_OE <= 1;
+                latch_CLK <= 0;
+                data_bus <= PC+2;
                 state <= state + 1;
             end 
             9: begin
-                latchLE <= 0;
+                latch_CLK <= 1;
                 state <= state + 1;
             end 
             10: begin
-                memOE <= 0;
+                mem_OE <= 0;
                 state <= state + 1;
             end                            
             11: begin
-              addrB <= uio_in;
-              state <= state + 1;              
-            end           
-            // addrC            
+              addr_C <= uio_in;
+              state <= state + 1;             
+            end     
+
+            // val_A            
             12: begin   
-                memWE <= 1;
-                memOE <= 1;
-                latchLE <= 1;
-                dataDB <= PC+2;
+                mem_WE <= 1;
+                mem_OE <= 1;
+                latch_CLK <= 0;
+                data_bus <= addr_A;
                 state <= state + 1;
             end 
             13: begin
-                latchLE <= 0;
+                latch_CLK <= 1;
                 state <= state + 1;
             end 
             14: begin
-                memOE <= 0;
+                mem_OE <= 0;
                 state <= state + 1;
             end                            
             15: begin
-              addrC <= uio_in;
+              val_A <= uio_in;
               state <= state + 1;             
-            end             
-            // valA            
+            end            
+
+            // val_B           
             16: begin   
-                memWE <= 1;
-                memOE <= 1;
-                latchLE <= 1;
-                dataDB <= addrA;
+                mem_WE <= 1;
+                mem_OE <= 1;
+                latch_CLK <= 0;
+                data_bus <= addr_B;
                 state <= state + 1;
             end 
             17: begin
-                latchLE <= 0;
+                latch_CLK <= 1;
                 state <= state + 1;
             end 
             18: begin
-                memOE <= 0;
+                mem_OE <= 0;
                 state <= state + 1;
             end                            
             19: begin
-              valA <= uio_in;
-              state <= state + 1;             
-            end             
-            // valB           
-            20: begin   
-                memWE <= 1;
-                memOE <= 1;
-                latchLE <= 1;
-                dataDB <= addrB;
-                state <= state + 1;
-            end 
-            21: begin
-                latchLE <= 0;
-                state <= state + 1;
-            end 
-            22: begin
-                memOE <= 0;
-                state <= state + 1;
-            end                            
-            23: begin
-              valB <= uio_in;
+              val_B <= uio_in;
               state <= state + 1;              
-            end            
+            end      
+
             // SUBNEG logic                
-            24: begin
-                memWE <= 1;
-                memOE <= 1;
-                latchLE <= 1;
-                dataDB <= addrB;
+            20: begin
+                mem_WE <= 1;
+                mem_OE <= 1;
+                latch_CLK <= 0;
+                data_bus <= addr_B;
                 state <= state + 1;
             end
-            25: begin
-                latchLE <= 0;       
+            21: begin
+                latch_CLK <= 1;       
                 state <= state + 1;
             end
-            26: begin
-                dataDB <= valB - valA;;
+            22: begin
+                data_bus <= val_B - val_A;
                 state <= state + 1;
             end            
-            27: begin
-                if (valA>valB) PC <= addrC;
+            23: begin
+                if (val_A>val_B) PC <= addr_C;
                 else PC <= PC + 3;
-                if (addrB != 255) memWE <= 0;                                  
-                state <= 4;                
-            end              
+                if (addr_B != 255) mem_WE <= 0;   
+                else out_CLK <= 1;
+                state <= state + 1;               
+            end                         
+            24: begin
+                state <= 0;
+            end 
+              
           endcase
+          
     end    
 
 endmodule
