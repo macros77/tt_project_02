@@ -28,13 +28,9 @@ module tt_um_macros77_subneg (
 
     assign uo_out[7:4] = state[3:0];
 
-    // Latch outout
-    reg out_CLK = 0;
-    assign uo_out[3] = out_CLK;
-    
-    // Latch memory address
-    reg latch_CLK = 0;
-    assign uo_out[0] = latch_CLK; 
+    // Memory address latch
+    reg mem_latch_CLK = 0;
+    assign uo_out[0] = mem_latch_CLK; 
        
     // SRAM output
     reg mem_OE = 1;
@@ -44,8 +40,12 @@ module tt_um_macros77_subneg (
     reg mem_WE = 1;
     assign uo_out[2] = mem_WE; 
 
-    // Bus direction
-    assign uio_oe  =  (mem_OE) ? 8'b11111111 : 8'b00000000;
+    // Output latch
+    reg out_latch_CLK = 0;
+    assign uo_out[3] = out_latch_CLK;    
+
+    // Data bus direction
+    assign uio_oe = (mem_OE) ? 8'b11111111 : 8'b00000000;
     
     reg [7:0] data_bus = 0;
     assign uio_out = data_bus;
@@ -55,22 +55,22 @@ module tt_um_macros77_subneg (
           if (reset) begin
             PC <= 0;
             state <= 0;
-            out_CLK <= 0;
+            out_latch_CLK <= 0;
           end
 
           case (state)
 
             // addr_A            
             0: begin   
-                out_CLK <= 0;
+                out_latch_CLK <= 0;
                 mem_WE <= 1;
                 mem_OE <= 1;
-                latch_CLK <= 0;
+                mem_latch_CLK <= 0;
                 data_bus <= PC;
                 state <= state + 1;
             end 
             1: begin
-                latch_CLK <= 1;
+                mem_latch_CLK <= 1;
                 state <= state + 1;
             end 
             2: begin
@@ -86,12 +86,12 @@ module tt_um_macros77_subneg (
             4: begin   
                 mem_WE <= 1;
                 mem_OE <= 1;
-                latch_CLK <= 0;
+                mem_latch_CLK <= 0;
                 data_bus <= PC+1;
                 state <= state + 1;
             end 
             5: begin
-                latch_CLK <= 1;
+                mem_latch_CLK <= 1;
                 state <= state + 1;
             end 
             6: begin
@@ -107,12 +107,12 @@ module tt_um_macros77_subneg (
             8: begin   
                 mem_WE <= 1;
                 mem_OE <= 1;
-                latch_CLK <= 0;
+                mem_latch_CLK <= 0;
                 data_bus <= PC+2;
                 state <= state + 1;
             end 
             9: begin
-                latch_CLK <= 1;
+                mem_latch_CLK <= 1;
                 state <= state + 1;
             end 
             10: begin
@@ -128,12 +128,12 @@ module tt_um_macros77_subneg (
             12: begin   
                 mem_WE <= 1;
                 mem_OE <= 1;
-                latch_CLK <= 0;
+                mem_latch_CLK <= 0;
                 data_bus <= addr_A;
                 state <= state + 1;
             end 
             13: begin
-                latch_CLK <= 1;
+                mem_latch_CLK <= 1;
                 state <= state + 1;
             end 
             14: begin
@@ -149,12 +149,12 @@ module tt_um_macros77_subneg (
             16: begin   
                 mem_WE <= 1;
                 mem_OE <= 1;
-                latch_CLK <= 0;
+                mem_latch_CLK <= 0;
                 data_bus <= addr_B;
                 state <= state + 1;
             end 
             17: begin
-                latch_CLK <= 1;
+                mem_latch_CLK <= 1;
                 state <= state + 1;
             end 
             18: begin
@@ -170,12 +170,12 @@ module tt_um_macros77_subneg (
             20: begin
                 mem_WE <= 1;
                 mem_OE <= 1;
-                latch_CLK <= 0;
+                mem_latch_CLK <= 0;
                 data_bus <= addr_B;
                 state <= state + 1;
             end
             21: begin
-                latch_CLK <= 1;       
+                mem_latch_CLK <= 1;       
                 state <= state + 1;
             end
             22: begin
@@ -186,15 +186,15 @@ module tt_um_macros77_subneg (
                 if (val_A>val_B) PC <= addr_C;
                 else PC <= PC + 3;
                 if (addr_B != 255) mem_WE <= 0;   
-                else out_CLK <= 1;
+                else out_latch_CLK <= 1;
                 state <= state + 1;               
-            end                         
+            end              
             24: begin
                 state <= 0;
-            end 
+            end
               
           endcase
-          
+
     end    
 
 endmodule
