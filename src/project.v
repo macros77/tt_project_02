@@ -18,7 +18,7 @@ module tt_um_macros77_subneg (
 
     wire reset = ! rst_n;
     
-    reg [4:0] state;
+    reg [4:0] state = 0;
     reg [7:0] PC;
     reg [7:0] addr_A;
     reg [7:0] addr_B;
