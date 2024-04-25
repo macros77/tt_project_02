@@ -70,11 +70,11 @@ module tt_um_macros77_subneg (
           case (state)
 
             // addr_A            
-            0: begin   
-                out_latch_CLK <= 0;
+            0: begin                 
                 mem_WE <= 1;
                 mem_OE <= 1;
                 mem_latch_CLK <= 0;
+                out_latch_CLK <= 0;
                 data_bus <= PC;
                 state <= state + 1;
             end 
