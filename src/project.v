@@ -51,8 +51,10 @@ module tt_um_macros77_subneg (
     // Data bus direction
     assign uio_oe = (mem_OE && enable) ? 8'b11111111 : 8'b00000000;
     
-    reg [7:0] data_bus;
-    assign uio_out = data_bus;
+    reg [7:0] data_in;
+    assign uio_out = data_in;
+
+    wire [7:0] data_in = uio_in;
     
     always@(posedge clk) begin
 
@@ -75,7 +77,7 @@ module tt_um_macros77_subneg (
                 mem_OE <= 1;
                 mem_latch_CLK <= 0;
                 out_latch_CLK <= 0;
-                data_bus <= PC;
+                data_in <= PC;
                 state <= state + 1;
             end 
             1: begin
@@ -87,7 +89,7 @@ module tt_um_macros77_subneg (
                 state <= state + 1;
             end                            
             3: begin
-              addr_A <= uio_in;
+              addr_A <= data_in;
               state <= state + 1;              
             end
 
@@ -96,7 +98,7 @@ module tt_um_macros77_subneg (
                 mem_WE <= 1;
                 mem_OE <= 1;
                 mem_latch_CLK <= 0;
-                data_bus <= PC+1;
+                data_in <= PC+1;
                 state <= state + 1;
             end 
             5: begin
@@ -108,7 +110,7 @@ module tt_um_macros77_subneg (
                 state <= state + 1;
             end                            
             7: begin
-              addr_B <= uio_in;
+              addr_B <= data_in;
               state <= state + 1;              
             end         
 
@@ -117,7 +119,7 @@ module tt_um_macros77_subneg (
                 mem_WE <= 1;
                 mem_OE <= 1;
                 mem_latch_CLK <= 0;
-                data_bus <= PC+2;
+                data_in <= PC+2;
                 state <= state + 1;
             end 
             9: begin
@@ -129,7 +131,7 @@ module tt_um_macros77_subneg (
                 state <= state + 1;
             end                            
             11: begin
-              addr_C <= uio_in;
+              addr_C <= data_in;
               state <= state + 1;             
             end     
 
@@ -138,7 +140,7 @@ module tt_um_macros77_subneg (
                 mem_WE <= 1;
                 mem_OE <= 1;
                 mem_latch_CLK <= 0;
-                data_bus <= addr_A;
+                data_in <= addr_A;
                 state <= state + 1;
             end 
             13: begin
@@ -150,7 +152,7 @@ module tt_um_macros77_subneg (
                 state <= state + 1;
             end                            
             15: begin
-              val_A <= uio_in;
+              val_A <= data_in;
               state <= state + 1;             
             end            
 
@@ -159,7 +161,7 @@ module tt_um_macros77_subneg (
                 mem_WE <= 1;
                 mem_OE <= 1;
                 mem_latch_CLK <= 0;
-                data_bus <= addr_B;
+                data_in <= addr_B;
                 state <= state + 1;
             end 
             17: begin
@@ -171,7 +173,7 @@ module tt_um_macros77_subneg (
                 state <= state + 1;
             end                            
             19: begin
-              val_B <= uio_in;
+              val_B <= data_in;
               state <= state + 1;              
             end      
 
@@ -180,7 +182,7 @@ module tt_um_macros77_subneg (
                 mem_WE <= 1;
                 mem_OE <= 1;
                 mem_latch_CLK <= 0;
-                data_bus <= addr_B;
+                data_in <= addr_B;
                 state <= state + 1;
             end
             21: begin
@@ -188,7 +190,7 @@ module tt_um_macros77_subneg (
                 state <= state + 1;
             end
             22: begin
-                data_bus <= val_B - val_A;
+                data_in <= val_B - val_A;
                 state <= state + 1;
             end            
             23: begin
