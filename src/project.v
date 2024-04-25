@@ -63,7 +63,6 @@ module tt_um_macros77_subneg (
         out_latch_CLK <= 0;
         mem_WE <= 1;
         mem_OE <= 1;
-        data_bus <= 213;
       end
 
       if (enabled) begin
