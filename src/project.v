@@ -18,36 +18,36 @@ module tt_um_macros77_subneg (
 
     wire reset = ! rst_n;
     
-    reg [4:0] state = 0;
-    reg [7:0] PC = 0;
-    reg [7:0] addr_A = 0;
-    reg [7:0] addr_B = 0;
-    reg [7:0] addr_C = 0;
-    reg [7:0] val_A = 0;
-    reg [7:0] val_B = 0;
+    reg [4:0] state;
+    reg [7:0] PC;
+    reg [7:0] addr_A;
+    reg [7:0] addr_B;
+    reg [7:0] addr_C;
+    reg [7:0] val_A;
+    reg [7:0] val_B;
 
     assign uo_out[7:4] = state[3:0];
 
     // Memory address latch
-    reg mem_latch_CLK = 0;
+    reg mem_latch_CLK;
     assign uo_out[0] = mem_latch_CLK; 
        
     // SRAM output
-    reg mem_OE = 1;
+    reg mem_OE;
     assign uo_out[1] = mem_OE;  
 
     // SRAM write
-    reg mem_WE = 1;
+    reg mem_WE;
     assign uo_out[2] = mem_WE; 
 
     // Output latch
-    reg out_latch_CLK = 0;
+    reg out_latch_CLK;
     assign uo_out[3] = out_latch_CLK;    
 
     // Data bus direction
     assign uio_oe = (mem_OE) ? 8'b11111111 : 8'b00000000;
     
-    reg [7:0] data_bus = 0;
+    reg [7:0] data_bus;
     assign uio_out = data_bus;
     
     always@(posedge clk) begin
