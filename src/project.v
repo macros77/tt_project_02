@@ -55,17 +55,18 @@ module tt_um_macros77_subneg (
     assign uio_out = data_bus;
     
     always@(posedge clk) begin
-          
-        if (enabled) begin
-              
-          if (reset) begin
-            PC <= 0;
-            state <= 0;
-            mem_latch_CLK <= 0;
-            out_latch_CLK <= 0;
-            mem_WE <= 1;
-            mem_OE <= 1;
-          end
+                        
+      if (reset) begin
+        PC <= 0;
+        state <= 0;
+        mem_latch_CLK <= 0;
+        out_latch_CLK <= 0;
+        mem_WE <= 1;
+        mem_OE <= 1;
+        data_bus <= 213;
+      end
+
+      if (enabled) begin
 
           case (state)
 
