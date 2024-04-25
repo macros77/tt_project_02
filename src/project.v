@@ -22,7 +22,7 @@ module tt_um_macros77_subneg (
     wire ext_mem_latch_CLK = ui_in[1];
     wire ext_mem_WE = ui_in[2];
     
-    reg [4:0] state = 0;
+    reg [4:0] state;
     reg [7:0] PC;
     reg [7:0] addr_A;
     reg [7:0] addr_B;
@@ -61,7 +61,9 @@ module tt_um_macros77_subneg (
           if (reset) begin
             PC <= 0;
             state <= 0;
+            mem_latch_CLK <= 0;
             out_latch_CLK <= 0;
+            mem_WE <= 1;
             mem_OE <= 1;
           end
 
