@@ -35,6 +35,9 @@ async def test_project(dut):
     # The following assersion is just an example of how to check the output values.
     # Change it to match the actual expected output of your module:
     assert dut.uo_out[0].value == 1
+    assert dut.uo_out[1].value == 1
+    assert dut.uo_out[2].value == 1
+    assert dut.uo_out[3].value == 0
 
     # Keep testing the module by changing the input values, waiting for
     # one or more clock cycles, and asserting the expected output values.
