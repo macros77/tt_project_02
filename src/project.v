@@ -22,7 +22,7 @@ module tt_um_macros77_subneg (
     wire ext_mem_latch_CLK = ui_in[1];
     wire ext_mem_WE = ui_in[2];
     
-    reg [4:0] state;
+    reg [4:0] state = 0;
     reg [7:0] PC;
     reg [7:0] addr_A;
     reg [7:0] addr_B;
@@ -46,7 +46,7 @@ module tt_um_macros77_subneg (
 
     // Output latch
     reg out_latch_CLK;
-    assign uo_out[3] = out_latch_CLK;    
+    assign uo_out[3] = (enabled) ? out_latch_CLK: 0;    
 
     // Data bus direction
     assign uio_oe = (mem_OE && enabled) ? 8'b11111111 : 8'b00000000;
