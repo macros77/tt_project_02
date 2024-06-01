@@ -16,4 +16,4 @@ Implementation of a simple 8-bit SUBNEG CPU. The CPU interfaces to external SRAM
 3.3V SRAM memory (e.g. AS6C6264).
 Memory address latch (e.g. 74HC574).
 CPU output latch (e.g. 74HC574).
-Device capable of displaying the 8-bit output value. 
+Device capable of displaying 8-bit output value. 
