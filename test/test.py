@@ -27,7 +27,6 @@ async def test_project(dut):
 
     # Set the input values you want to test
     dut.ui_in.value = 6
-    # dut.uio_in.value = 30
 
     # Wait for one clock cycle to see the output values
     await ClockCycles(dut.clk, 1)
@@ -38,6 +37,10 @@ async def test_project(dut):
     assert dut.uo_out[1].value == 1
     assert dut.uo_out[2].value == 1
     assert dut.uo_out[3].value == 0
+    assert dut.uo_out[4].value == 0
+    assert dut.uo_out[5].value == 0
+    assert dut.uo_out[6].value == 0
+    assert dut.uo_out[7].value == 0
 
     dut.ui_in.value = 1
     
